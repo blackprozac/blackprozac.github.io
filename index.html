@@ -25,14 +25,28 @@
       top: 0; left: 0; width: 100vw; height: 100vh;
       z-index: -1;
       overflow: hidden;
-      background-color: white;
+      background-color: transparent;
+      background-size: cover;
+      background-position: center;
       opacity: 0.3; /* overall background opacity */
-      transition: background-color 0.2s ease;
+      transition: background-color 0.4s ease;
+    }
+
+    /* White overlay to create dip effect */
+    #white-overlay {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      background: white;
+      opacity: 0;
+      pointer-events: none;
+      z-index: -1;
+      transition: opacity 0.4s ease;
     }
   </style>
 </head>
 <body>
   <div id="bg-container"></div>
+  <div id="white-overlay"></div>
 
   <div class="content">
     <h1 class="logo"><a href="index.html">blackprozac</a></h1>
@@ -49,6 +63,8 @@
   <script>
     (function(){
       const bgContainer = document.getElementById('bg-container');
+      const whiteOverlay = document.getElementById('white-overlay');
+
       const images = [
         'bg1.png',
         'bg2.png',
@@ -60,27 +76,32 @@
 
       let index = 0;
       const displayDuration = 2000; // 2 seconds
-      const whiteDipDuration = 200; // quick dip to white duration
+      const transitionDuration = 400; // 0.4 seconds fade
+
+      function fadeToWhite() {
+        return new Promise(resolve => {
+          whiteOverlay.style.opacity = '1';
+          setTimeout(resolve, transitionDuration);
+        });
+      }
+
+      function fadeFromWhite() {
+        return new Promise(resolve => {
+          whiteOverlay.style.opacity = '0';
+          setTimeout(resolve, transitionDuration);
+        });
+      }
 
       function showImage(idx) {
         bgContainer.style.backgroundImage = `url(${images[idx]})`;
-        bgContainer.style.backgroundColor = 'transparent';
       }
 
-      function dipToWhite(callback) {
-        bgContainer.style.backgroundColor = 'white';
-        setTimeout(() => {
-          bgContainer.style.backgroundColor = 'transparent';
-          callback();
-        }, whiteDipDuration);
-      }
-
-      function next() {
-        dipToWhite(() => {
-          index = (index + 1) % images.length;
-          showImage(index);
-          setTimeout(next, displayDuration);
-        });
+      async function next() {
+        await fadeToWhite();
+        index = (index + 1) % images.length;
+        showImage(index);
+        await fadeFromWhite();
+        setTimeout(next, displayDuration);
       }
 
       // Initial setup
