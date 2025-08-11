@@ -2,40 +2,25 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>blackprozac</title>
-  <meta name="description" content="blackprozac" />
-  <meta property="og:title" content="blackprozac" />
-  <meta property="og:description" content="art index" />
-  <meta property="og:image" content="blackprozac.github.io/paintingdemons.png" />
-  <meta property="og:type" content="website" />
+  <meta name="description" content="blackprozac">
+  <meta property="og:title" content="blackprozac">
+  <meta property="og:description" content="art index">
+  <meta property="og:image" content="blackprozac.github.io/paintingdemons.png">
+  <meta property="og:type" content="website">
+  
   <link rel="stylesheet" href="styles.css" />
-  <link rel="icon" href="/favicon.ico" />
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="shortcut icon" href="/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <meta name="apple-mobile-web-app-title" content="blackprozac" />
   <link rel="manifest" href="/site.webmanifest" />
-  <style>
-    /* Overlay full screen, invisible but clickable */
-    #video-overlay {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw; height: 100vh;
-      background: transparent;
-      z-index: 10;
-      cursor: pointer;
-    }
-  </style>
 </head>
 <body>
-  <video
-    id="bg-video"
-    autoplay
-    muted
-    loop
-    playsinline
-    preload="auto"
-    style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: -1;"
-  >
-    <source src="website-bg.mp4" type="video/mp4" />
+  <video autoplay muted loop playsinline id="bg-video" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: -1;">
+    <source src="website bg.mp4" type="video/mp4" />
   </video>
 
   <div class="content">
@@ -47,46 +32,8 @@
       <a href="https://dotbubble.xyz/" target="_blank">.clothing</a>
       <a href="https://0066700.xyz/microblog">.frequent thoughts</a>
       <a href="https://instagram.com/blackprozac" target="_blank">.instagram</a>
+      
     </nav>
   </div>
-
-  <!-- The overlay div for user interaction on iOS if autoplay fails -->
-  <div id="video-overlay" aria-label="Tap to play background video" role="button" tabindex="0"></div>
-
-  <script>
-    const video = document.getElementById('bg-video');
-    const overlay = document.getElementById('video-overlay');
-
-    // Ensure video is muted
-    video.muted = true;
-
-    // Try to autoplay
-    video.play().catch(() => {
-      // Autoplay failed, show overlay (should already be visible)
-      overlay.style.display = 'block';
-    });
-
-    // On user tap or key press on overlay, play video and hide overlay
-    function startVideo() {
-      video.play().then(() => {
-        overlay.style.display = 'none';
-      }).catch(() => {
-        // Still failed — do nothing or maybe notify user
-      });
-    }
-
-    overlay.addEventListener('click', startVideo);
-    overlay.addEventListener('keydown', e => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        startVideo();
-      }
-    });
-
-    // Initially hide overlay if autoplay succeeds immediately
-    video.onplaying = () => {
-      overlay.style.display = 'none';
-    };
-  </script>
 </body>
 </html>
