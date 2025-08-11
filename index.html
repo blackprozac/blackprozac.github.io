@@ -4,12 +4,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>blackprozac</title>
-  <meta name="description" content="blackprozac">
-  <meta property="og:title" content="blackprozac">
-  <meta property="og:description" content="art index">
-  <meta property="og:image" content="blackprozac.github.io/paintingdemons.png">
-  <meta property="og:type" content="website">
-  
+  <meta name="description" content="blackprozac" />
+  <meta property="og:title" content="blackprozac" />
+  <meta property="og:description" content="art index" />
+  <meta property="og:image" content="blackprozac.github.io/paintingdemons.png" />
+  <meta property="og:type" content="website" />
+
   <link rel="stylesheet" href="styles.css" />
   <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -17,11 +17,22 @@
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
   <meta name="apple-mobile-web-app-title" content="blackprozac" />
   <link rel="manifest" href="/site.webmanifest" />
+
+  <style>
+    /* Background container covering entire viewport */
+    #bg-container {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      z-index: -1;
+      overflow: hidden;
+      background-color: white;
+      opacity: 0.3; /* overall background opacity */
+      transition: background-color 0.2s ease;
+    }
+  </style>
 </head>
 <body>
-  <video autoplay muted loop playsinline id="bg-video" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: -1;">
-    <source src="website bg.mp4" type="video/mp4" />
-  </video>
+  <div id="bg-container"></div>
 
   <div class="content">
     <h1 class="logo"><a href="index.html">blackprozac</a></h1>
@@ -32,8 +43,50 @@
       <a href="https://dotbubble.xyz/" target="_blank">.clothing</a>
       <a href="https://0066700.xyz/microblog">.frequent thoughts</a>
       <a href="https://instagram.com/blackprozac" target="_blank">.instagram</a>
-      
     </nav>
   </div>
+
+  <script>
+    (function(){
+      const bgContainer = document.getElementById('bg-container');
+      const images = [
+        'bg1.png',
+        'bg2.png',
+        'bg3.png',
+        'bg4.png',
+        'bg5.png',
+        'bg6.png'
+      ];
+
+      let index = 0;
+      const displayDuration = 2000; // 2 seconds
+      const whiteDipDuration = 200; // quick dip to white duration
+
+      function showImage(idx) {
+        bgContainer.style.backgroundImage = `url(${images[idx]})`;
+        bgContainer.style.backgroundColor = 'transparent';
+      }
+
+      function dipToWhite(callback) {
+        bgContainer.style.backgroundColor = 'white';
+        setTimeout(() => {
+          bgContainer.style.backgroundColor = 'transparent';
+          callback();
+        }, whiteDipDuration);
+      }
+
+      function next() {
+        dipToWhite(() => {
+          index = (index + 1) % images.length;
+          showImage(index);
+          setTimeout(next, displayDuration);
+        });
+      }
+
+      // Initial setup
+      showImage(index);
+      setTimeout(next, displayDuration);
+    })();
+  </script>
 </body>
 </html>
