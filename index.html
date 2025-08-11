@@ -19,7 +19,7 @@
   <link rel="manifest" href="/site.webmanifest" />
 
   <style>
-    /* Background container covering entire viewport */
+
     #bg-container {
       position: fixed;
       top: 0; left: 0; width: 100vw; height: 100vh;
@@ -28,11 +28,11 @@
       background-color: transparent;
       background-size: cover;
       background-position: center;
-      opacity: 0.3; /* overall background opacity */
+      opacity: 0.3; 
       transition: background-color 0.4s ease;
     }
 
-    /* White overlay to create dip effect */
+
     #white-overlay {
       position: fixed;
       top: 0; left: 0; width: 100vw; height: 100vh;
@@ -75,8 +75,8 @@
       ];
 
       let index = 0;
-      const displayDuration = 1600; // 2 seconds
-      const transitionDuration = 400; // 0.4 seconds fade
+      const displayDuration = 1300; 
+      const transitionDuration = 400; 
 
       function fadeToWhite() {
         return new Promise(resolve => {
