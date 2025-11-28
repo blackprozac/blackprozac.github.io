@@ -4,12 +4,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>blackprozac</title>
-  <meta name="description" content="blackprozac">
-  <meta property="og:title" content="blackprozac">
-  <meta property="og:description" content="art index">
-  <meta property="og:image" content="blackprozac.github.io/paintingdemons.png">
-  <meta property="og:type" content="website">
-  
+  <meta name="description" content="blackprozac" />
+  <meta property="og:title" content="blackprozac" />
+  <meta property="og:description" content="art index" />
+  <meta property="og:image" content="blackprozac.github.io/paintingdemons.png" />
+  <meta property="og:type" content="website" />
+
   <link rel="stylesheet" href="styles.css" />
   <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -17,21 +17,97 @@
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
   <meta name="apple-mobile-web-app-title" content="blackprozac" />
   <link rel="manifest" href="/site.webmanifest" />
+
+  <style>
+
+    #bg-container {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      z-index: -1;
+      overflow: hidden;
+      background-color: transparent;
+      background-size: cover;
+      background-position: center;
+      opacity: 0.3; 
+      transition: background-color 0.4s ease;
+    }
+
+
+    #white-overlay {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      background: white;
+      opacity: 0;
+      pointer-events: none;
+      z-index: -1;
+      transition: opacity 0.4s ease;
+    }
+  </style>
 </head>
 <body>
-  <video autoplay muted loop playsinline id="bg-video" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: -1;">
-    <source src="website bg.mp4" type="video/mp4" />
-  </video>
+  <div id="bg-container"></div>
+  <div id="white-overlay"></div>
 
   <div class="content">
     <h1 class="logo"><a href="index.html">blackprozac</a></h1>
     <nav class="links">
       <a href="photography/photography.html">.photography</a>
-      <a href="https://blackscreen.app/" target="_blank">.art</a>
+      <a href="https://204609.xyz/" target="_blank">.art</a>
       <a href="https://soundcloud.com/blackprozac" target="_blank">.music</a>
       <a href="https://dotbubble.xyz/" target="_blank">.clothing</a>
+      <a href="https://0066700.xyz/microblog">.frequent thoughts</a>
       <a href="https://instagram.com/blackprozac" target="_blank">.instagram</a>
     </nav>
   </div>
+
+  <script>
+    (function(){
+      const bgContainer = document.getElementById('bg-container');
+      const whiteOverlay = document.getElementById('white-overlay');
+
+      const images = [
+        'bg1.png',
+        'bg2.png',
+        'bg3.png',
+        'bg4.png',
+        'bg5.png',
+        'bg6.png'
+      ];
+
+      let index = 0;
+      const displayDuration = 1300; 
+      const transitionDuration = 550; 
+
+      function fadeToWhite() {
+        return new Promise(resolve => {
+          whiteOverlay.style.opacity = '1';
+          setTimeout(resolve, transitionDuration);
+        });
+      }
+
+      function fadeFromWhite() {
+        return new Promise(resolve => {
+          whiteOverlay.style.opacity = '0';
+          setTimeout(resolve, transitionDuration);
+        });
+      }
+
+      function showImage(idx) {
+        bgContainer.style.backgroundImage = `url(${images[idx]})`;
+      }
+
+      async function next() {
+        await fadeToWhite();
+        index = (index + 1) % images.length;
+        showImage(index);
+        await fadeFromWhite();
+        setTimeout(next, displayDuration);
+      }
+
+      // Initial setup
+      showImage(index);
+      setTimeout(next, displayDuration);
+    })();
+  </script>
 </body>
 </html>
