@@ -105,7 +105,9 @@ body, html {
     
     transition: transform 0.2s ease;
   }
-  
+  .gallery-grid img.wide {
+  grid-column: span 2;
+}
   .gallery-grid img:hover {
     transform: scale(1.02);
   }
@@ -120,7 +122,17 @@ body, html {
     grid-template-columns: 1fr;
   }
 }
+@media (max-width: 1024px) {
+  .gallery-grid img.wide {
+    grid-column: span 2;
+  }
+}
 
+@media (max-width: 600px) {
+  .gallery-grid img.wide {
+    grid-column: span 1;
+  }
+}
   
   /* Lightbox styles */
   #lightbox {
