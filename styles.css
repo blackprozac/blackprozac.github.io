@@ -94,59 +94,45 @@ body, html {
   grid-template-columns: repeat(4, 1fr);
   gap: 20px;
   padding: 40px;
-
-  /* KEY FIX */
-  grid-auto-rows: 260px;
 }
 
 .gallery-grid img {
   width: 100%;
-  height: 100%;              /* ← CRITICAL */
-  object-fit: cover;
+  height: auto;          /* keep natural ratio */
+  object-fit: contain;  /* NO CROPPING */
   cursor: zoom-in;
   transition: transform 0.2s ease;
 }
 
-/* Wide images */
+/* Horizontal images */
 .gallery-grid img.wide {
   grid-column: span 2;
-}
-
-/* Optional: make wides slightly taller for emphasis */
-.gallery-grid img.wide {
-  grid-row: span 2;
 }
 
 .gallery-grid img:hover {
   transform: scale(1.02);
 }
+
 @media (max-width: 1024px) {
   .gallery-grid {
     grid-template-columns: repeat(2, 1fr);
-    grid-auto-rows: 220px;
   }
 
   .gallery-grid img.wide {
     grid-column: span 2;
-    grid-row: span 1;
   }
 }
 
 @media (max-width: 600px) {
   .gallery-grid {
     grid-template-columns: 1fr;
-    grid-auto-rows: auto;
-  }
-
-  .gallery-grid img {
-    height: auto;
   }
 
   .gallery-grid img.wide {
     grid-column: span 1;
-    grid-row: span 1;
   }
 }
+
 
   
   /* Lightbox styles */
