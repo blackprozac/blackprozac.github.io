@@ -91,11 +91,11 @@ body, html {
 }
 
 .gallery-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 20px;
-    padding: 40px;
-  }
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* EXACTLY 4 columns */
+  gap: 20px;
+  padding: 40px;
+}
   
   .gallery-grid img {
     width: 100%;
@@ -109,6 +109,18 @@ body, html {
   .gallery-grid img:hover {
     transform: scale(1.02);
   }
+  @media (max-width: 1024px) {
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .gallery-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
   
   /* Lightbox styles */
   #lightbox {
